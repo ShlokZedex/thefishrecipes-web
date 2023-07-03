@@ -1,5 +1,5 @@
 import React from "react";
-
+import Image from 'next/image'
 // import { slides } from "@/constants";
 
 const slides = [
@@ -48,12 +48,11 @@ const Masonry = () => {
       <div className="columns-1 md:columns-2 gap-3 w-full mx-auto">
         <div className="h-auto w-full m-auto px-4 lg:px-0 lg:pr-4 group">
           {slides.slice(0,6).map((s, index) => (
-            <div className="break-inside-avoid mb-5">
-              <img
+            <div key={index} className="break-inside-avoid mb-5">
+              <Image
                 src={s.url}
                 alt={`Slide ${index + 1}`}
                 className="w-full"
-                key={index}
               />
               <div>
                 <span className="text-[10px] font-sans uppercase my-12 text-red-500">
