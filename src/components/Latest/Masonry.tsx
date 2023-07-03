@@ -52,7 +52,9 @@ const Masonry = () => {
               <Image
                 src={s.url}
                 alt={`Slide ${index + 1}`}
-                className="w-full"
+                className="w-full "
+                width={500}
+                height={150}
               />
               <div>
                 <span className="text-[10px] font-sans uppercase my-12 text-red-500">

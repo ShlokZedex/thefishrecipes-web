@@ -1,7 +1,15 @@
+"use client"
+
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
-import React from "react";
+import React, { useState } from "react";
 
 const LgNavbar = () => {
+
+  const [open, setOpen]  = useState(false)
+  const searchBar=()=>{
+    setOpen(!open)
+  }
+
   return (
     <nav className=" bg-primary-1">
       <div className=" flex justify-between mx-auto container">
@@ -15,8 +23,11 @@ const LgNavbar = () => {
             <li>Contact</li>
           </ul>
         </div>
-        <div className="self-center">
-          <MagnifyingGlassIcon className='h-5 w-5'/>
+        <div className="self-center relative">
+          <button onClick={searchBar}><MagnifyingGlassIcon className='h-5 w-5'/></button>
+          {open && (
+            <input type="search" className="absolute border text-sm border-t-primary-3 z-10 top-12 right-1 px-5 py-3 focus:outline-none " placeholder="Search:"/>
+          )}
         </div>
       </div>
     </nav>

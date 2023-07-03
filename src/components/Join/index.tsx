@@ -8,7 +8,7 @@ const Join = () => {
             <h1 className='text-lg font-semibold'>Join our NewsLetter</h1>
             <p className='mt-2 mb-6 text-gray-400 text-sm'>Sign up for our free newsletters to receive the latest news. Don&apos;t worry we wont do spam.</p>
             <div className='flex flex-col lg:flex-row text-sm items-center justify-center'>
-                <input type="text" className='py-4 px-5 mb-8 w-full lg:w-1/2' placeholder='Enter you Email Address'/>
+                <input type="text" className='py-4 px-5 mb-8 w-full lg:w-1/2 focus:outline-none' placeholder='Enter you Email Address'/>
                 <button className='bg-red-600 text-primary-1 py-4 px-10 mb-8 uppercase text-xs'>Subscribe</button>
             </div>
         </div>
