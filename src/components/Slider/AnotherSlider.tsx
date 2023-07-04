@@ -48,7 +48,7 @@ const AnotherSlider = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       scrollRight(scrollDistance);
-    }, 4000); // Adjust the interval duration as needed
+    }, 10000); // Adjust the interval duration as needed
 
     return () => {
       clearInterval(interval);

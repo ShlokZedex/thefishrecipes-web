@@ -49,18 +49,20 @@ const Masonry = () => {
         <div className="h-auto w-full m-auto px-4 lg:px-0 lg:pr-4 group">
           {slides.slice(0,6).map((s, index) => (
             <div key={index} className="break-inside-avoid mb-5">
-              <Image
-                src={s.url}
-                alt={`Slide ${index + 1}`}
-                className="w-full "
-                width={500}
-                height={150}
-              />
+              <div className="overflow-hidden">
+                <Image
+                  src={s.url}
+                  alt={`Slide ${index + 1}`}
+                  className="w-full hover:scale-110 hover:rotate-3 hover:duration-[3000ms]  hover:transition"
+                  width={500}
+                  height={150}
+                />
+              </div>
               <div>
                 <span className="text-[10px] font-sans uppercase my-12 text-red-500">
                   {s.category}
                 </span>
-                <h1 className="text-2xl font-bold font-sans hover:text-primary-3">{s.title}</h1>
+                <h1 className="text-2xl font-bold font-sans hover:text-primary-3 cursor-pointer">{s.title}</h1>
                 <p className="text-xs font-sans">{s.time} days ago</p>
                 <p className="text-sm font-sans font-medium pt-4">
                   Lorem ipsum dolor, sit amet consectetur adipisicing elit.

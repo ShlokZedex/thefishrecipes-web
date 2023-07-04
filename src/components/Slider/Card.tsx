@@ -17,7 +17,7 @@ const Card:React.FC<SlideProps> = ({slide}) => {
         </div>
         <div className="bottom flex flex-col ">
             <div className="category text-[10px] font-sans uppercase text-red-500">{slide.category}</div>
-            <div className="title text-2xl font-bold font-sans text-primary-1 hover:text-primary-3">{slide.title}</div>
+            <div className="title text-2xl font-bold font-sans text-primary-1 hover:text-primary-3 cursor-pointer">{slide.title}</div>
             <div className="time text-xs font-sans text-gray-400">{slide.time} days ago</div>
         </div>
     </div>

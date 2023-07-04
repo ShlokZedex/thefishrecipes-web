@@ -12,7 +12,7 @@ export default function Home() {
   return (
     <main>
       <Navbar />
-      <div className="grid gap-6">
+      <div className="grid gap-10">
         <MainBlogs />
         <Trending />
         <Join />
@@ -20,8 +20,8 @@ export default function Home() {
         {/* <NewSlider /> */}
         <Latest />
         <LatestPosts />
+        <Footer />
       </div>
-      <Footer />
     </main>
   );
 }

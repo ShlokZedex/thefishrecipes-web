@@ -31,7 +31,7 @@ const TrendingCarousel = () => {
       <div className="h-auto overflow-hidden">
         <div
           style={{ backgroundImage: `url(${slides[currentIndex].url})` }}
-          className="h-[350px] w-full bg-center mx-2 lg:mx-auto bg-cover duration-500 relative"
+          className="h-[375px] w-full bg-center mx-2 lg:mx-auto bg-cover duration-500 relative"
         >
           <div className="absolute bottom-0 pb-5 pl-5 text-primary-1">
             <span className="text-[10px] py-1 px-3 bg-primary-3 font-sans uppercase my-12">

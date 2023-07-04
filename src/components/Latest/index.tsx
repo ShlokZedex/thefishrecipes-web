@@ -3,6 +3,7 @@ import Social from './Social'
 import TrendingCarousel from '../Trending/TrendingCarousel'
 import Stories from './Stories'
 import Masonry from './Masonry'
+import Categories from './Categories'
 
 const Latest = () => {
   return (
@@ -15,6 +16,7 @@ const Latest = () => {
                 <Social />
                 <TrendingCarousel />
                 <Stories />
+                <Categories />
             </div>
         </div>
     </div>

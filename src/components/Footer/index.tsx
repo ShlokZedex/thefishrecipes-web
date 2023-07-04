@@ -8,10 +8,10 @@ const Footer = () => {
             <h1 className='text-xl'>MITTE</h1>
             <p className='my-2'>Copyright - All rights reserved</p>
             <div className='flex gap-2 items-center justify-center'>
-                <TwitterLogoIcon className='h-5 w-5'/>
-                <LinkedInLogoIcon className='h-5 w-5'/>
-                <GitHubLogoIcon className='h-5 w-5'/>
-                <InstagramLogoIcon className='h-5 w-5'/>
+                <TwitterLogoIcon className='h-5 w-5 hover:text-primary-3 cursor-pointer'/>
+                <LinkedInLogoIcon className='h-5 w-5 hover:text-primary-3 cursor-pointer'/>
+                <GitHubLogoIcon className='h-5 w-5 hover:text-primary-3 cursor-pointer'/>
+                <InstagramLogoIcon className='h-5 w-5 hover:text-primary-3 cursor-pointer'/>
             </div>
         </div>
     </footer>
