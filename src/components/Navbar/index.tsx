@@ -4,8 +4,8 @@ import LgNavbar from "./LgNavbar";
 
 const Navbar = () => {
   return (
-    <nav>
-      <div className="container mx-auto ">
+    <nav className="border-b-2 border-b-primary-2">
+      <div className="container mx-auto">
         <div className="lg:hidden">
           <SmNavbar />
         </div>

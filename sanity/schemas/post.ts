@@ -6,6 +6,10 @@ export default defineType({
   type: 'document',
   fields: [
     defineField({
+      name:'metadata',
+      type:'metadata'
+    }),
+    defineField({
       name: 'title',
       title: 'Title',
       type: 'string',

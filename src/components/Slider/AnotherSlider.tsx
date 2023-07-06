@@ -62,7 +62,7 @@ const AnotherSlider = () => {
           <h1 className="text-lg font-bold font-sans mb-5">Popular Videos</h1>
           <div
             id="content"
-            className="flex items-center justify-start overflow-x-auto scroll-smooth gap-8 max-w-[375px] md:max-w-[800px] lg:max-w-[800px] xl:max-w-[1200px]"
+            className="flex items-center justify-start overflow-x-hidden scroll-smooth gap-8 max-w-[375px] md:max-w-[800px] lg:max-w-[800px] xl:max-w-[1200px]"
           >
             {/* Left Arrow */}
             <div className="absolute top-[50%] left-4 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer hover:bg-primary-3">

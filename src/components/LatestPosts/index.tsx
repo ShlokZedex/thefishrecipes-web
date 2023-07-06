@@ -29,7 +29,7 @@ const LatestPosts = () => {
               <img src={s.url} alt={`Slide ${index + 1}`} className="w-full hover:opacity-75 cursor-pointer" key={index} />
           ))}
         </div>
-        <button className='bg-primary-1 border border-gray-300 text-primary-3 py-4 px-14 mt-7 uppercase text-xs hover:bg-primary-3 hover:text-primary-1'>Follow Us</button>
+        <button className='bg-primary-1 border border-gray-300 text-primary-3 py-4 px-14 my-7 uppercase text-xs hover:bg-primary-3 hover:text-primary-1'>Follow Us</button>
       </div>
     </div>
   )

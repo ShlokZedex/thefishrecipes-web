@@ -7,21 +7,27 @@ import Navbar from "../components/Navbar";
 import NewSlider from "../components/Slider/NewSlider";
 import Trending from "../components/Trending";
 import Latest from "@/components/Latest";
+import { cachedClient } from "../../sanity/lib/client";
+import { categoriesQuery, postsQuery } from "../../sanity/lib/queries";
 
-export default function Home() {
+export default async function Home() {
+
+  const posts = await cachedClient(postsQuery)
+  const categories = await cachedClient(categoriesQuery)
+
   return (
     <main>
       <Navbar />
-      <div className="grid gap-10">
-        <MainBlogs />
-        <Trending />
-        <Join />
-        <AnotherSlider />
-        {/* <NewSlider /> */}
-        <Latest />
-        <LatestPosts />
-        <Footer />
-      </div>
+        <div className="flex flex-col gap-10">
+          <MainBlogs posts={posts}/>
+          <Trending />
+          <Join />
+          <AnotherSlider />
+          {/* <NewSlider /> */}
+          <Latest posts={posts} categories={categories}/>
+          <LatestPosts />
+        </div>
+      <Footer />
     </main>
   );
 }
