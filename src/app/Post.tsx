@@ -8,13 +8,12 @@ import { client } from "../../sanity/lib/client";
 import Social from "@/components/Latest/Social";
 import Categories from "@/components/Latest/Categories";
 import Join from "@/components/Join";
-import Latest from "@/components/Latest";
 import LatestPosts from "@/components/LatestPosts";
 import Stories from "@/components/Latest/Stories";
 
 const builder = imageUrlBuilder(client);
 
-export default function Post({ post, categories=[] }: { post: SanityDocument, categories:SanityDocument[] }) {
+export default function Post({ post, categories=[], latestPosts=[] }: { post: SanityDocument, categories:SanityDocument[] , latestPosts:SanityDocument[] }) {
   return (
     <main className="container mx-auto my-8">
       <div className="flex flex-col lg:flex-row gap-5 mx-2 md:mx-0">
@@ -32,7 +31,7 @@ export default function Post({ post, categories=[] }: { post: SanityDocument, ca
           </div>
           <h3 className="text-sm text-primary-3 ">{post.category}</h3>
           <h1 className="text-xl font-bold">{post.title}</h1>
-          <div className="">
+          <div className="prose">
             {post?.body ? <PortableText value={post.body} /> : null}
           </div>
         </div>
@@ -42,7 +41,7 @@ export default function Post({ post, categories=[] }: { post: SanityDocument, ca
             <Categories categories={categories} /> 
             <Join />
             <LatestPosts />
-            <Stories />
+            <Stories latestPosts={latestPosts}/>
           </div>
         </div>
       </div>

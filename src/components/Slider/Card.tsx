@@ -1,24 +1,35 @@
+import { SanityDocument } from 'next-sanity'
 import React from 'react'
+import Image from "next/image";
+import imageUrlBuilder from "@sanity/image-url";
+import { client } from "../../../sanity/lib/client";
+import Link from 'next/link';
 
-interface SlideProps {
-  slide : {
-    "url" : string,
-    "category" : string,
-    "title":string,
-    "time" : number,
-  }
-}
+export const builder = imageUrlBuilder(client);
 
-const Card:React.FC<SlideProps> = ({slide}) => {
+const Card = ({post}:{post: SanityDocument}) => {
   return (
     <div className="shadow-lg h-auto w-[375px] group">
         <div className="top mb-6">
-            <img src={slide.url} alt="img" className='w-[375px] h-[300px]'/>
+            {/* <img src={post.url} alt="img" className=''/> */}
+            <Image
+                  className="w-[375px] h-[300px] "
+                  src={builder.image(post.mainImage).url()}
+                  width={370}
+                  height={300}
+                  alt={post?.mainImage?.alt}
+                />
         </div>
         <div className="bottom flex flex-col ">
-            <div className="category text-[10px] font-sans uppercase text-red-500">{slide.category}</div>
-            <div className="title text-2xl font-bold font-sans text-primary-1 hover:text-primary-3 cursor-pointer">{slide.title}</div>
-            <div className="time text-xs font-sans text-gray-400">{slide.time} days ago</div>
+            <Link href={`/blog/category/${String(post.category).toLowerCase()}`}><div className="category text-[10px] font-sans uppercase text-red-500">{post.category}</div></Link>
+            <Link href={`/blog/${post.slug.current}`}><div className="title text-2xl font-bold font-sans text-primary-1 hover:text-primary-3 cursor-pointer line-clamp-1">{post.title}</div></Link>
+            <div className="time text-xs font-sans text-gray-400">{new Date(post.publishedAt).toLocaleDateString(
+            "en-US",{
+              day: "numeric",
+              month: "long",
+              year: "numeric",
+            }
+          )}</div>
         </div>
     </div>
   )

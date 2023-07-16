@@ -1,5 +1,5 @@
 import { SanityDocument } from "@sanity/client";
-import { categoriesQuery, postPathsQuery, postQuery } from "../../../../sanity/lib/queries";
+import { LatestPostsQuery, categoriesQuery, postPathsQuery, postQuery } from "../../../../sanity/lib/queries";
 import { cachedClient } from "../../../../sanity/lib/client";
 import Post from "../../Post";
 import Navbar from "@/components/Navbar";
@@ -14,11 +14,12 @@ export async function generateStaticParams() {
 export default async function Page({ params }: { params: any }) {
   const post = await cachedClient<SanityDocument>(postQuery, params);
   const categories = await cachedClient(categoriesQuery)
+  const latestPosts = await cachedClient(LatestPostsQuery)
     
      return(
       <>
-        <Navbar />
-          <Post post={post} categories={categories}/>
+        <Navbar categories={categories}/>
+          <Post post={post} categories={categories} latestPosts = {latestPosts}/>
         <Footer />
       </>
      ) ;

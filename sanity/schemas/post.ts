@@ -60,6 +60,12 @@ export default defineType({
       title: 'Body',
       type: 'blockContent',
     }),
+    defineField({
+      name: 'trending',
+      title: 'Trending',
+      type: 'boolean',
+      description: 'Check this box if the post is trending',
+    }),
   ],
 
   preview: {

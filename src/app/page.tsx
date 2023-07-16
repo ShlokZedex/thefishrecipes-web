@@ -4,27 +4,27 @@ import Join from "../components/Join";
 import LatestPosts from "../components/LatestPosts";
 import MainBlogs from "../components/MainBlogs";
 import Navbar from "../components/Navbar";
-import NewSlider from "../components/Slider/NewSlider";
 import Trending from "../components/Trending";
 import Latest from "@/components/Latest";
 import { cachedClient } from "../../sanity/lib/client";
-import { categoriesQuery, postsQuery } from "../../sanity/lib/queries";
+import { LatestPostsQuery, categoriesQuery, postsQuery, trendingPostsQuery } from "../../sanity/lib/queries";
 
 export default async function Home() {
 
   const posts = await cachedClient(postsQuery)
   const categories = await cachedClient(categoriesQuery)
+  const trendingPosts = await cachedClient(trendingPostsQuery)
+  const latestPosts = await cachedClient(LatestPostsQuery)
 
   return (
     <main>
-      <Navbar />
+      <Navbar categories={categories}/>
         <div className="flex flex-col gap-10">
-          <MainBlogs posts={posts}/>
-          <Trending />
+          <MainBlogs posts={posts} />
+          <Trending trendingPosts = {trendingPosts} categories={categories}/>
           <Join />
-          <AnotherSlider />
-          {/* <NewSlider /> */}
-          <Latest posts={posts} categories={categories}/>
+          <AnotherSlider posts={posts}/>
+          <Latest latestPosts={latestPosts} categories={categories}/>
           <LatestPosts />
         </div>
       <Footer />

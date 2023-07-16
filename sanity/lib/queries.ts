@@ -2,7 +2,7 @@ import { groq } from "next-sanity";
 
 // Get all posts
 export const postsQuery = groq`*[_type == "post" && defined(slug.current)]{
-    _id, title, slug, body , mainImage ,"author" : author->name, "category" :categories[]->title,
+    _id, title, slug, body , mainImage ,"author" : author->name, "category" :categories[]->title,publishedAt
 }`;
 
 // Get a single post by its slug
@@ -15,11 +15,10 @@ export const postPathsQuery = groq`*[_type == "post" && defined(slug.current)][]
     "params": { "slug": slug.current }
   }`;
 
-
 // Get all categories
 export const categoriesQuery = groq`*[_type=="category"]{
-  _id, title,slug
-}`
+  _id, title,slug,"numberOfBlogs": count(*[_type=="post" && references(^._id)])
+}`;
 
 // Get all category slugs
 export const categoriesPathsQuery = groq`*[_type == "category" && defined(slug.current)][]{
@@ -33,6 +32,23 @@ export const categoryQuery = groq`*[_type == "category" && slug.current == $slug
 
 // Get all posts of a particular category by slug
 export const postsByCategoryQuery = groq`*[_type == "post" && references(*[_type == "category" && slug.current == $slug]._id)]{
-  _id, title, slug, body, mainImage, "author": author->name, "category": categories[]->title
+  _id, title, slug, body, mainImage, "author": author->name, "category": categories[]->title, publishedAt,
 }`;
 
+// Get all trending posts
+export const trendingPostsQuery = groq`*[_type == "post" && defined(slug.current) && trending == true]{
+  _id, title, slug, body, mainImage, "author": author->name, "category": categories[]->title, publishedAt,
+}`;
+
+// Get all Latest posts
+export const LatestPostsQuery = groq`*[_type == "post" && defined(slug.current)]
+| order(publishedAt desc)
+{
+  _id,
+  title,
+  slug,
+  body,
+  mainImage,
+  "author": author->name,
+  "category": categories[]->title
+}`;

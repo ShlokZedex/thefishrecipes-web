@@ -2,9 +2,8 @@
 
 import React, { useEffect, useState } from "react";
 import Card from "./Card";
-import { slides } from "@/constants";
 import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
-import { RxDotFilled } from "react-icons/rx";
+import { SanityDocument } from "next-sanity";
 
 const scrollLeft = (scrollDistance : number) => {
   const contentElement = document.getElementById("content");
@@ -20,8 +19,8 @@ const scrollRight = (scrollDistance : number) => {
   }
 };
 
-const AnotherSlider = () => {
-  const [scrollDistance, setScrollDistance] = useState(800);
+export default function AnotherSlider({ posts = [] }: { posts: SanityDocument[] }) {
+  const [scrollDistance, setScrollDistance] = useState(400);
 
   useEffect(() => {
     const handleResize = () => {
@@ -62,7 +61,8 @@ const AnotherSlider = () => {
           <h1 className="text-lg font-bold font-sans mb-5">Popular Videos</h1>
           <div
             id="content"
-            className="flex items-center justify-start overflow-x-hidden scroll-smooth gap-8 max-w-[375px] md:max-w-[800px] lg:max-w-[800px] xl:max-w-[1200px]"
+            className="flex items-center justify-start overflow-x-hidden scroll-smooth gap-8 "
+            // max-w-[375px] md:max-w-[800px] lg:max-w-[800px] xl:max-w-[1200px]
           >
             {/* Left Arrow */}
             <div className="absolute top-[50%] left-4 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer hover:bg-primary-3">
@@ -79,27 +79,15 @@ const AnotherSlider = () => {
               />
             </div>
 
-            {slides.map((s, index) => (
-              <div key={index}>
-                <Card key={index} slide={s} />
+            {posts.map((post) => (
+              <div key={post._id}>
+                <Card post={post} />
               </div>
             ))}
           </div>
-          {/* <div className="flex top-4 justify-center py-2 mt-8">
-              {slides.map((_, slideIndex) => (
-                <div
-                  key={slideIndex}
-                  // onClick={() => goToSlide}
-                  // className={classNames("text-sm cursor-pointer", slideIndex === currentIndex ? 'border border-white rounded-full' : '')}
-                >
-                  <RxDotFilled />
-                </div>
-              ))}
-            </div> */}
         </div>
       </div>
     </div>
   );
 };
 
-export default AnotherSlider;

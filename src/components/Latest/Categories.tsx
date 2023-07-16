@@ -14,22 +14,10 @@ export default function Categories({  categories = [] }: {categories : SanityDoc
                 <Link href={`/blog/category/${category.slug.current}`} key={category._id}> 
                   <li className="flex justify-between cursor-pointer" >
                     <h4 className="text-gray-500  hover:text-primary-3">{category.title}</h4>
-                    <p className="text-primary-3 text-xs">24</p>
+                    <p className="text-primary-3 text-xs">{category.numberOfBlogs}</p>
                   </li>
                 </Link>         
             )})}
-            {/* <li className="flex justify-between cursor-pointer">
-              <h4 className="text-gray-500  hover:text-primary-3">Travel</h4>
-              <p className="text-primary-3 text-xs">24</p>
-            </li>
-            <li className="flex justify-between cursor-pointer">
-              <h4 className="text-gray-500  hover:text-primary-3">Lifestyle</h4>
-              <p className="text-primary-3 text-xs">5</p>
-            </li>
-            <li className="flex justify-between cursor-pointer">
-              <h4 className="text-gray-500  hover:text-primary-3">Food</h4>
-              <p className="text-primary-3 text-xs">8</p>
-            </li> */}
           </ul>
         </div>
       </div>

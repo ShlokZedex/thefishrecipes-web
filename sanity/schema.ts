@@ -5,7 +5,9 @@ import category from './schemas/category'
 import post from './schemas/post'
 import author from './schemas/author'
 import metadata from './schemas/metadata'
+import tag from './schemas/tag'
+import redirect from './schemas/redirect'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [post, author, category, blockContent , metadata],
+  types: [post, author, category, blockContent , metadata, tag, redirect],
 }
