@@ -14,7 +14,7 @@ export async function generateStaticParams() {
 export default async function Page() {
   const categories = await cachedClient(categoriesQuery)
   const postsByCategory = await cachedClient<SanityDocument[]>(postsQuery);
-  // console.log("Posts by category:", postsByCategory)
+  
      return(
       <>
         <Navbar categories={categories}/>

@@ -27,7 +27,7 @@ export default function TrendingCarousel({
       const isLastSlide = currentIndex === trendingPosts.length - 1;
       const newIndex = isLastSlide ? 0 : currentIndex + 1;
       setCurrentIndex(newIndex);
-    }, 4000);
+    }, 5000);
 
     return () => {
       clearInterval(autoSlide);
