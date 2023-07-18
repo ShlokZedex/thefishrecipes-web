@@ -17,5 +17,11 @@ export default defineType({
       type: 'string',
       description:'Destination is the path we want to route to'
     }),
+    defineField({
+      name: 'permanent',
+      title: 'Permanent',
+      type: 'boolean',
+      initialValue: () => true,
+    }), 
   ],
   });

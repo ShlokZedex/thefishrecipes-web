@@ -13,7 +13,44 @@ import Stories from "@/components/Latest/Stories";
 
 const builder = imageUrlBuilder(client);
 
-export default function Post({ post, categories=[], latestPosts=[] }: { post: SanityDocument, categories:SanityDocument[] , latestPosts:SanityDocument[] }) {
+interface ImageProps {
+  value?: {
+    asset?: {
+      _ref?: string;
+    };
+    alt?: string;
+  };
+}
+
+const ImageComponent: React.FC<ImageProps> = ({ value }) => {
+  if (!value?.asset?._ref) {
+    return null;
+  }
+  return (
+    <Image
+      className="inline-block"
+      alt={value.alt || " "}
+      loading="lazy"
+      src={builder.image(value).url()}
+      width={320}
+      height={200}
+    />
+  );
+};
+
+const ptComponents = {
+  types: {
+    image: ImageComponent,
+  },
+};
+
+interface PostProps {
+  post: SanityDocument;
+  categories: SanityDocument[];
+  latestPosts: SanityDocument[];
+}
+
+const Post: React.FC<PostProps> = ({ post, categories = [], latestPosts = [] }) => {
   return (
     <main className="container mx-auto my-8">
       <div className="flex flex-col lg:flex-row gap-5 mx-2 md:mx-0">
@@ -32,19 +69,36 @@ export default function Post({ post, categories=[], latestPosts=[] }: { post: Sa
           <h3 className="text-sm text-primary-3 ">{post.category}</h3>
           <h1 className="text-xl font-bold">{post.title}</h1>
           <div className="prose">
-            {post?.body ? <PortableText value={post.body} /> : null}
+            {post?.body ? <PortableText value={post.body} components={ptComponents} /> : null}
           </div>
+          {post.tags && post.tags.length > 0 && (
+            <div className="my-4">
+              <h3 className="text-sm text-primary-3">Tags:</h3>
+              <div className="flex flex-wrap gap-2">
+                {post.tags.map((tag: string, index: number) => (
+                  <span
+                    key={index}
+                    className="inline-block bg-primary-3 text-white px-2 py-1 rounded"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
         <div className="w-full lg:w-1/3">
           <div className="flex flex-col gap-5">
             <Social />
-            <Categories categories={categories} /> 
+            <Categories categories={categories} />
             <Join />
             <LatestPosts />
-            <Stories latestPosts={latestPosts}/>
+            <Stories latestPosts={latestPosts} />
           </div>
         </div>
       </div>
     </main>
   );
-}
+};
+
+export default Post;

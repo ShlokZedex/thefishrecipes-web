@@ -10,11 +10,28 @@ import Link from "next/link";
 const builder = imageUrlBuilder(client);
 
 export default function Category({ postsByCategory = [] }: { postsByCategory: SanityDocument[] }) {
+
+  // let heading :string | undefined= "BLOGS";
+  // if (typeof window !== 'undefined') {
+    //   heading = window.location.href.split("/").pop();
+    // }
+
   // const heading = window.location.href.split("/").pop();
+  
+  // const [heading, setHeading] = useState('');
+
+  // useEffect(() => {
+  //   const currentPath = window.location.pathname;
+  //   const pathSegments = currentPath.split('/');
+  //   const lastSegment = pathSegments[pathSegments.length - 1];
+
+  //   setHeading(lastSegment);
+  // }, []);
+
   return (
     <main className="container mx-auto">
       <div>
-      {/* <p className="text-center text-4xl font-bold uppercase text-primary-3 pt-6">{heading} Blogs</p> */}
+      <p className="text-center text-4xl font-bold uppercase text-primary-3 pt-6">{postsByCategory[0]?.category} Blogs</p>
       <div className="columns-1 md:columns-2 lg:columns-3 gap-5 w-full mx-auto my-6">
         <div className="h-auto w-full m-auto px-4 lg:px-0 lg:pr-4 group">
           {postsByCategory.map((post) => (

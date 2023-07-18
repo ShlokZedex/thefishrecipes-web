@@ -17,9 +17,11 @@ export default function SmNavbar({ categories = [] }: { categories : SanityDocum
   return (
     <nav>
     <div className='flex justify-between align-middle mx-auto '>
+      <Link href={`/`}>
         <div className='py-5 px-4 font-semibold my-auto'>
             <h1>MM MITTE</h1>
         </div>
+      </Link>
         <div className='mr-4'>
           <button className='py-1 px-3 border-primary-2 rounded-lg border-2 my-4' onClick={openHamburger}>
             <HamburgerMenuIcon className='h-7 w-7'/>
@@ -41,7 +43,9 @@ export default function SmNavbar({ categories = [] }: { categories : SanityDocum
                   ))}
               </ul>
           </li>
+          <Link href={`/contact`}>
           <li className='py-1 hover:text-primary-3'>Contact</li>
+          </Link>
         </ul>
       </div>
     </nav>

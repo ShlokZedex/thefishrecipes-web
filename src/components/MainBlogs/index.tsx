@@ -15,7 +15,7 @@ function MainBlogs({ posts = [] }: { posts: SanityDocument[] }) {
       <div className="container mx-auto">
         <div className="w-full flex flex-col lg:flex-row">
           {randomPosts.slice(0, 3).map((post) => (
-            <div className="px-4 lg:px-0 py-6 mx-auto relative" key={post._id}>
+            <div className="px-4 lg:px-0 py-6 mx-auto relative " key={post._id}>
               <div className="overflow-hidden">
                 <Image
                   className="hover:scale-110 hover:rotate-3 hover:duration-[3000ms] hover:transition "
