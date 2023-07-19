@@ -13,18 +13,17 @@ function MainBlogs({ posts = [] }: { posts: SanityDocument[] }) {
   return (
     <div className=" bg-primary-2">
       <div className="container mx-auto">
-        <div className="w-full flex flex-col lg:flex-row">
+        <div className="w-full flex flex-col lg:flex-row gap-6 py-6">
           {randomPosts.slice(0, 3).map((post) => (
-            <div className="px-4 lg:px-0 py-6 mx-auto relative " key={post._id}>
-              <div className="overflow-hidden">
+            <div className="px-4 lg:px-0 mx-auto relative min-w-[280px] w-full h-[440px] md:h-[510px] lg-[440px] xl-[480px] overflow-hidden" key={post._id}>
                 <Image
-                  className="hover:scale-110 hover:rotate-3 hover:duration-[3000ms] hover:transition "
+                  className="hover:scale-110 hover:rotate-3 hover:duration-[3000ms] hover:transition"
                   src={builder.image(post.mainImage).url()}
-                  width={370}
-                  height={510}
+                  // width={370}
+                  // height={510}
                   alt={post?.mainImage?.alt}
+                  fill
                 />
-              </div>
               <div className="absolute bottom-0 py-16 left-1/2 -translate-x-1/2 text-primary-1 text-center">
                 <Link href={`/blog/category/${String(post.category).toLowerCase()}`}>
                   <span className="text-[10px] py-1 px-3 bg-primary-3 font-sans uppercase my-12">
