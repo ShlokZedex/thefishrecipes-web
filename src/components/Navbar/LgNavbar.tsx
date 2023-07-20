@@ -56,7 +56,7 @@ export default function LgNavbar({
   useEffect(() => {
     const debounce = setTimeout(()=>{   
       handleSearch();
-    },300)
+    },400)
     return ()=>{
       clearTimeout(debounce);
     }
