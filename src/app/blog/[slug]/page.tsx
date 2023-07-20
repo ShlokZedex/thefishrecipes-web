@@ -11,6 +11,14 @@ export async function generateStaticParams() {
   return posts;
 }
 
+export async function generateMetadata({ params }: { params: any }){ 
+  const post = await cachedClient(postQuery, params)
+  return {
+    title: post?.metadata?.title,
+    description: post?.metadata?.description,
+  }
+}
+
 export default async function Page({ params }: { params: any }) {
   const post = await cachedClient<SanityDocument>(postQuery, params);
   const categories = await cachedClient(categoriesQuery)

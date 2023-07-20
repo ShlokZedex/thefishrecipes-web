@@ -7,7 +7,7 @@ export const postsQuery = groq`*[_type == "post" && defined(slug.current)]{
 
 // Get a single post by its slug
 export const postQuery = groq`*[_type == "post" && slug.current == $slug][0]{
-  _id,title, mainImage, body,"author":author->name, publishedAt, "categories":categories[]->title, createdAt,"tags":tags[]->label
+  _id,title, mainImage, body,"author":author->name, publishedAt, "categories":categories[]->title, createdAt,"tags":tags[]->label,metadata
 }`;
 
 // Get all post slugs
