@@ -66,7 +66,7 @@ const Post: React.FC<PostProps> = ({ post, categories = [], latestPosts = [] }) 
               />
             ) : null}
           </div>
-          <h3 className="text-sm text-primary-3 ">{post.category}</h3>
+          <h3 className="text-sm text-primary-3">{post.category}</h3>
           <h1 className="text-xl font-bold">{post.title}</h1>
           <div className="prose">
             {post?.body ? <PortableText value={post.body} components={ptComponents} /> : null}
