@@ -54,7 +54,12 @@ export default function LgNavbar({
   };
 
   useEffect(() => {
-    handleSearch();
+    const debounce = setTimeout(()=>{   
+      handleSearch();
+    },1000)
+    return ()=>{
+      clearTimeout(debounce);
+    }
   }, [searchQuery]);
 
   const handleBlur = () => {

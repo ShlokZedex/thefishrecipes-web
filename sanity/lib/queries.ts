@@ -50,6 +50,7 @@ export const LatestPostsQuery = groq`*[_type == "post" && defined(slug.current)]
   body,
   mainImage,
   "author": author->name,
-  "category": categories[]->title
+  "category": categories[]->title,
+  publishedAt,
 }`;
 

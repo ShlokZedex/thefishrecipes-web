@@ -11,14 +11,14 @@ export default function TrendingImage({ trendingPosts=[] }: { trendingPosts : Sa
   const randomPost = trendingPosts.sort(() => Math.random() - 0.5)[0];
 
   return (
-    <div className="mx-auto relative">
+    <div className="mx-auto relative px-2 lg:px-0">
       <div className="overflow-hidden">
       <img
           src={builder.image(randomPost.mainImage).url()}
           className=" w-full hover:scale-110 hover:rotate-3 hover:duration-[3000ms] hover:transition"
         ></img>
       </div>
-      <div className="absolute top-0 pt-5 left-4 text-primary-1">
+      <div className="absolute top-0 pt-5 left-5 text-primary-1">
         <Link href={`/blog/category/${String(randomPost.category).toLowerCase()}`}>
           <span className="text-[10px] py-1 bg-primary-3 font-sans uppercase">
             {randomPost.category}

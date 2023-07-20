@@ -31,7 +31,11 @@ export default function Masonry({ latestPosts = [] }: { latestPosts: SanityDocum
                 <Link href={`/blog/${post.slug.current}`}>
                   <h1 className="text-2xl font-bold font-sans hover:text-primary-3 cursor-pointer">{post.title}</h1>
                 </Link>
-                <p className="text-xs font-sans"> Date comes here | by {post.author}</p>
+                <p className="text-xs font-sans"> {new Date(post.publishedAt).toLocaleDateString("en-US", {
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric",
+                  })} | by {post.author}</p>
                 <div className="text-sm font-sans font-medium pt-4 text-gray-500 line-clamp-3">
                   {post?.body ? <PortableText value={post.body} /> : null}
                 </div>

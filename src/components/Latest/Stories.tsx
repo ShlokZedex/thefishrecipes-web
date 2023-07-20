@@ -20,7 +20,11 @@ export default function Stories({ latestPosts = [] }: { latestPosts: SanityDocum
                   </h1>
                 </Link>
                 <p className="text-xs font-sans">
-                    Date comes here
+                {new Date(post.publishedAt).toLocaleDateString("en-US", {
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric",
+                  })}
                 </p>
               </div>
             ))}
