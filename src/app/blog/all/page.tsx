@@ -18,7 +18,7 @@ export default async function Page() {
      return(
       <>
         <Navbar categories={categories}/>
-            <Category postsByCategory={postsByCategory} />
+            <Category postsByCategory={postsByCategory} heading="All"/>
         <Footer />
       </>
      );

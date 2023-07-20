@@ -3,7 +3,9 @@
 import { CaretDownIcon, MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import { SanityDocument } from "next-sanity";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { groq } from "next-sanity";
+import { cachedClient } from "../../../sanity/lib/client";
 
 export default function LgNavbar({
   categories = [],
@@ -12,6 +14,8 @@ export default function LgNavbar({
 }) {
   const [open, setOpen] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState<SanityDocument[]>([]);
 
   const searchBar = () => {
     setOpen(!open);
@@ -20,6 +24,44 @@ export default function LgNavbar({
   const toggleDropdown = () => {
     setShowDropdown(!showDropdown);
   };
+
+  const handleSearch = async () => {
+    const searchResultsQuery = groq`
+      *[
+        _type == "post" &&
+        (
+          title match $searchQuery ||
+          tags[]->label match $searchQuery
+        )
+      ]{
+        _id,
+        title,
+        slug,
+        "author": author->name,
+        "category": categories[]->title
+      }`;
+
+    try {
+      const results = await cachedClient(searchResultsQuery, {
+        searchQuery: `*${searchQuery}*`, 
+      });
+
+      setSearchResults(results);
+    } catch (error) {
+      console.error("Error fetching search results:", error);
+      setSearchResults([]);
+    }
+  };
+
+  useEffect(() => {
+    handleSearch();
+  }, [searchQuery]);
+
+  const handleBlur = () => {
+    // Close the search input and search results box when the input loses focus
+    setOpen(false);
+  };
+
 
   return (
     <nav className=" bg-primary-1">
@@ -41,7 +83,7 @@ export default function LgNavbar({
               <p>Category</p>
               <CaretDownIcon className="h-5 w-5" />
               {showDropdown && (
-                <ul className="absolute bg-white text-black mt-12 border border-t-primary-3 p-2 shadow">
+                <ul className="absolute bg-white text-black mt-12 border-t-2 border-t-primary-3 p-2 shadow">
                   {categories.map((category) => (
                     <Link
                       key={category._id}
@@ -61,17 +103,41 @@ export default function LgNavbar({
           </ul>
         </div>
         <div className="self-center relative">
-          <button onClick={searchBar}>
-            <MagnifyingGlassIcon className="h-5 w-5 hover:text-primary-3" />
-          </button>
-          {open && (
+        <button onClick={searchBar}>
+          <MagnifyingGlassIcon className="h-5 w-5 hover:text-primary-3" />
+        </button>
+        {open && (
+          <div className="relative">
             <input
               type="search"
-              className="absolute border text-sm border-t-primary-3 z-10 top-12 right-1 px-5 py-3 focus:outline-none "
+              className="absolute border border-t-primary-3  z-10 top-2 right-1 px-5 py-3 focus:outline-none"
               placeholder="Search:"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              onBlur={handleBlur}
             />
-          )}
-        </div>
+            {searchResults.length > 0 && searchQuery.length > 0 && (
+              <ul className="absolute bg-white text-black mt-14 border right-1 border-t-primary-3 p-2 shadow w-[266px]">
+                {searchResults.map((result) => (
+                  <li key={result._id} className="border-b-2 border-b-primary-2 px-2 py-1">
+                    <Link href={`/blog/${result.slug.current}`} className=" hover:text-primary-3">
+                        <span className="line-clamp-2">
+                          {result.title} ({result.category})
+                        </span>
+                        {/* <span>({result.category})</span>s */}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            )}
+            {searchResults.length === 0 && searchQuery.length > 0 && (
+              <div className="absolute bg-white text-black mt-14 border right-1 border-t-primary-3 p-2 shadow w-[266px]">
+                <p className="px-2 py-1">No results found.</p>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
       </div>
     </nav>
   );

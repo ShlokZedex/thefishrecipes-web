@@ -9,34 +9,10 @@ const client = createClient({
   useCdn: process.env.VERCEL_ENV === "production",
 });
 
-// import {cachedClient} from './sanity/lib/client'
-
-// get redirects from Sanity for Vercel
-
-// async function fetchSanityRedirects() {
-//   const data = await cachedClient(
-//     `*[_type == "redirect"]{ from, to, isPermanent }`
-//   )
-//   const redirects = data.map((redirect) => {
-//     return {
-//       source: `/${redirect.from}`,
-//       destination: `/${redirect.to}`,
-//       permanent: redirect.isPermanent,
-//     }
-//   })
-
-//   return redirects
-// }
-
 const nextConfig = {
-  // async redirects() {
-  //   const sanityRedirects = await fetchSanityRedirects()
-  //   return sanityRedirects
-  // },
     async redirects() {
       try {
         const redirects = await client.fetch('*[_type == "redirect"]');
-
         return redirects.map(({ source, destination, permanent }) => ({
           source,
           destination,
