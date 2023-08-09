@@ -9,15 +9,15 @@ import Link from "next/link";
 
 const builder = imageUrlBuilder(client);
 
-export default function Category({ postsByCategory = [] , heading }: { postsByCategory: SanityDocument[] ,heading?: string }) {
+export default function Author({ postsByAuthor = [] , heading }: { postsByAuthor: SanityDocument[] ,heading?: string }) {
 
   return (
     <main className="container mx-auto">
       <div>
-      <p className="text-center text-4xl font-bold uppercase text-primary-3 pt-6">{heading?.replace('-',' ')} Blogs</p>
+      <p className="text-center text-4xl font-bold uppercase text-primary-3 pt-6"> Blogs by - {heading ? heading : postsByAuthor[0]?.author}</p>
       <div className="columns-1 md:columns-2 lg:columns-3 gap-5 w-full mx-auto my-6">
         <div className="h-auto w-full m-auto px-4 lg:px-0 lg:pr-4 group">
-          {postsByCategory.map((post) => (
+          {postsByAuthor.map((post) => (
             <div key={post._id} className="break-inside-avoid mb-5">
               <div className="overflow-hidden">
                 <Image

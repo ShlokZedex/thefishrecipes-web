@@ -11,9 +11,9 @@ export default function Categories({  categories = [] }: {categories : SanityDoc
           <ul className="flex flex-col gap-3">
             {categories.map((category)=>{ 
              return (    
-                <Link href={`/blog/category/${category.slug.current}`} key={category._id}> 
+                <Link href={`/category/${category.slug.current}`} key={category._id}> 
                   <li className="flex justify-between cursor-pointer" >
-                    <h4 className="text-gray-500  hover:text-primary-3">{category.title}</h4>
+                    <h4 className="text-sm hover:text-primary-3">{category.title}</h4>
                     <p className="text-primary-3 text-xs">{category.numberOfBlogs}</p>
                   </li>
                 </Link>         

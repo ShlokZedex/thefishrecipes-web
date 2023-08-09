@@ -18,16 +18,16 @@ export default function TrendingImage({ trendingPosts=[] }: { trendingPosts : Sa
           className=" w-full hover:scale-110 hover:rotate-3 hover:duration-[3000ms] hover:transition"
         ></img>
       </div>
-      <div className="absolute top-0 pt-5 left-5 text-primary-1">
-        <Link href={`/blog/category/${String(randomPost.category).toLowerCase()}`}>
-          <span className="text-[10px] py-1 bg-primary-3 font-sans uppercase">
-            {randomPost.category}
+      <div className="absolute bottom-0 pb-5 pl-5 text-primary-1">
+        <Link href={`/category/${String(randomPost.primaryCategory).toLowerCase()}`}>
+          <span className="text-[10px] py-1 px-3 bg-primary-3 font-sans uppercase my-12">
+            {randomPost.primaryCategory}
           </span>
         </Link>
-        <Link href={`/blog/${randomPost.slug.current}`}>
+        <Link href={`/${randomPost.slug.current}`}>
           <h1 className="text-2xl font-bold font-sans line-clamp-2">{randomPost.title}</h1>
         </Link>
-        <p className="text-xs font-sans">by {randomPost.author} | {new Date(randomPost.publishedAt).toLocaleDateString(
+        <p className="text-xs font-sans">{new Date(randomPost.publishedAt).toLocaleDateString(
             "en-US",{
               day: "numeric",
               month: "long",

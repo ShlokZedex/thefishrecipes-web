@@ -10,6 +10,7 @@ import Categories from "@/components/Latest/Categories";
 import Join from "@/components/Join";
 import LatestPosts from "@/components/LatestPosts";
 import Stories from "@/components/Latest/Stories";
+import Link from "next/link";
 
 const builder = imageUrlBuilder(client);
 
@@ -53,7 +54,7 @@ interface PostProps {
 const Post: React.FC<PostProps> = ({ post, categories = [], latestPosts = [] }) => {
   return (
     <main className="container mx-auto my-8">
-      <div className="flex flex-col lg:flex-row gap-5 mx-2 md:mx-0">
+      <div className="flex flex-col lg:flex-row gap-10 mx-2 md:mx-0">
         <div className="w-full lg:w-2/3">
           <div className="mb-5">
             {post?.mainImage ? (
@@ -66,8 +67,8 @@ const Post: React.FC<PostProps> = ({ post, categories = [], latestPosts = [] }) 
               />
             ) : null}
           </div>
-          <h3 className="text-sm text-primary-3">{post.category}</h3>
-          <h1 className="text-xl font-bold">{post.title}</h1>
+          <Link href={`/category/${String(post.primaryCategory).trim().toLowerCase().replace(' ','-')}`}><h1 className="text-sm text-primary-3">{post.primaryCategory}</h1></Link>
+          <h1 className="text-2xl font-extrabold">{post.title}</h1>
           <div className="prose">
             {post?.body ? <PortableText value={post.body} components={ptComponents} /> : null}
           </div>
@@ -76,12 +77,11 @@ const Post: React.FC<PostProps> = ({ post, categories = [], latestPosts = [] }) 
               <h3 className="text-sm text-primary-3">Tags:</h3>
               <div className="flex flex-wrap gap-2">
                 {post.tags.map((tag: string, index: number) => (
-                  <span
-                    key={index}
-                    className="inline-block bg-primary-3 text-white px-2 py-1 rounded"
-                  >
+                  <Link key={index} href={`/tag/${String(tag).trim().toLowerCase().replace(' ','-')}`}>
+                  <span className="inline-block bg-primary-3 text-white px-2 py-1 rounded">
                     {tag}
                   </span>
+                  </Link>
                 ))}
               </div>
             </div>

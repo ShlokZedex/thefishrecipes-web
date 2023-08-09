@@ -1,4 +1,14 @@
-import {defineField, defineType} from 'sanity'
+import { defineField, defineType,ValidationContext, Rule } from 'sanity';
+import { cachedClient } from '../lib/client';
+
+// Custom function to check if a post with the same slug exists
+async function isSlugUnique(slug: string | undefined, context: ValidationContext): Promise<boolean> {
+  if (!slug) {
+    return true; // Return true if slug is undefined
+  }
+  const existingPosts = await cachedClient(`*[_type == "post" && slug.current == $slug]{_id}`, { slug });
+  return existingPosts.length === 0;
+}
 
 export default defineType({
   name: 'post',
@@ -6,13 +16,14 @@ export default defineType({
   type: 'document',
   fields: [
     defineField({
-      name:'metadata',
-      type:'metadata'
+      name: 'metadata',
+      type: 'metadata',
     }),
     defineField({
       name: 'title',
       title: 'Title',
       type: 'string',
+      validation: Rule => Rule.required(),
     }),
     defineField({
       name: 'slug',
@@ -22,12 +33,21 @@ export default defineType({
         source: 'title',
         maxLength: 96,
       },
+      validation: Rule =>
+        Rule.custom(async (slug, context) => {
+          const isUnique = await isSlugUnique(slug?.current, context);
+          if (!isUnique) {
+            return 'This slug is already in use.';
+          }
+          return true;
+        }),
     }),
     defineField({
       name: 'author',
       title: 'Author',
       type: 'reference',
-      to: {type: 'author'},
+      to: { type: 'author' },
+      validation: Rule => Rule.required(),
     }),
     defineField({
       name: 'mainImage',
@@ -36,30 +56,39 @@ export default defineType({
       options: {
         hotspot: true,
       },
+      validation: Rule => Rule.required(),
       fields: [
         {
           name: 'alt',
           type: 'string',
           title: 'Alternative Text',
-        }
-      ]
+        },
+      ],
+    }),    
+    defineField({
+      name: 'primaryCategory',
+      title: 'Primary Category',
+      type: 'reference',
+      to: { type: 'category' },
+      validation: Rule => Rule.required(),
     }),
     defineField({
       name: 'categories',
       title: 'Categories',
       type: 'array',
-      of: [{type: 'reference', to: {type: 'category'}}],
+      of: [{ type: 'reference', to: { type: 'category' } }],
     }),
     defineField({
       name: 'tags',
       title: 'Tags',
       type: 'array',
-      of: [{type: 'reference', to: {type: 'tag'}}],
+      of: [{ type: 'reference', to: { type: 'tag' } }],
     }),
     defineField({
       name: 'publishedAt',
       title: 'Published at',
       type: 'datetime',
+      validation: Rule => Rule.required(),
     }),
     defineField({
       name: 'body',
@@ -82,8 +111,8 @@ export default defineType({
       media: 'mainImage',
     },
     prepare(selection) {
-      const {author} = selection
-      return {...selection, subtitle: author && `by ${author}`}
+      const { author } = selection;
+      return { ...selection, subtitle: author && `by ${author}` };
     },
   },
-})
+});

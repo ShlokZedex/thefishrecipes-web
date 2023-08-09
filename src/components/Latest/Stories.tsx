@@ -9,12 +9,12 @@ export default function Stories({ latestPosts = [] }: { latestPosts: SanityDocum
             <h1 className='font-bold'>Latest Stories</h1>
             {latestPosts.slice(0,6).map((post)=>(
                 <div key={post._id} className='border-t'> 
-                 <Link href={`/blog/category/${String(post.category).toLowerCase()}`}>
+                 <Link href={`/category/${String(post.primaryCategory).trim().toLowerCase().replace(' ','-')}`}>
                   <span className="text-[10px] font-sans uppercase my-12 text-red-500">
-                    {post.category}
+                    {post.primaryCategory}
                   </span>
                 </Link>
-                <Link href={`/blog/${post.slug.current}`}>
+                <Link href={`/${post.slug.current}`}>
                   <h1 className=" font-medium font-sans hover:text-primary-3 cursor-pointer">
                     {post.title}
                   </h1>

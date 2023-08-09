@@ -23,19 +23,19 @@ export default function Masonry({ latestPosts = [] }: { latestPosts: SanityDocum
                 />
               </div>
               <div>
-                <Link href={`/blog/category/${String(post.category).toLowerCase()}`}>
+                <Link href={`/category/${String(post.primaryCategory).trim().toLowerCase().replace(' ','-')}`}>
                   <span className="text-[10px] font-sans uppercase my-12 text-red-500">
-                    {post.category}
+                    {post.primaryCategory}
                   </span>
                 </Link>
-                <Link href={`/blog/${post.slug.current}`}>
-                  <h1 className="text-2xl font-bold font-sans hover:text-primary-3 cursor-pointer">{post.title}</h1>
+                <Link href={`/${post.slug.current}`}>
+                  <h1 className="text-2xl font-bold font-sans hover:text-primary-3 cursor-pointer line-clamp-2">{post.title}</h1>
                 </Link>
-                <p className="text-xs font-sans"> {new Date(post.publishedAt).toLocaleDateString("en-US", {
+                <p className="text-xs font-sans">by <Link className="hover:text-primary-3 hover:underline" href={`/author/${String(post.author).trim().toLowerCase().replace(' ', '-')}`}>{post.author}</Link> | {new Date(post.publishedAt).toLocaleDateString("en-US", {
                     day: "numeric",
                     month: "long",
                     year: "numeric",
-                  })} | by {post.author}</p>
+                  })} </p>
                 <div className="text-sm font-sans font-medium pt-4 text-gray-500 line-clamp-3">
                   {post?.body ? <PortableText value={post.body} /> : null}
                 </div>
@@ -44,7 +44,7 @@ export default function Masonry({ latestPosts = [] }: { latestPosts: SanityDocum
           ))}
         </div>
       </div>
-      <Link href={`/blog/all`} ><button className='bg-primary-1 flex justify-center mx-auto border border-gray-300 text-primary-3 py-4 px-14 mt-7 uppercase text-xs  hover:bg-primary-3 hover:text-primary-1'>Load More</button></Link>
+      <Link href={`/all`} ><button className='bg-primary-1 flex justify-center mx-auto border border-gray-300 text-primary-3 py-4 px-14 mt-7 uppercase text-xs  hover:bg-primary-3 hover:text-primary-1'>Load More</button></Link>
     </div>
   );
 };

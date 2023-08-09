@@ -39,7 +39,7 @@ export default function SmNavbar({ categories = [] }: { categories : SanityDocum
               <CaretDownIcon className="h-5 w-5" />
               <ul className="bg-white text-black ml-4">
                   {categories.map((category)=>(
-                    <Link key={category._id} href={`/blog/category/${(category.title).toLowerCase()}`}><li className="hover:text-primary-3 cursor-pointer p-1 text-xs">{category.title}</li></Link>
+                    <Link key={category._id} href={`/category/${(category.title).toLowerCase()}`}><li className="hover:text-primary-3 cursor-pointer p-1 text-xs">{category.title}</li></Link>
                   ))}
               </ul>
           </li>

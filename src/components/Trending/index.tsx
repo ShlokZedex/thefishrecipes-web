@@ -16,7 +16,7 @@ export default function Trending({ trendingPosts=[], categories = [] }: { trendi
               <ul className="flex gap-6 uppercase text-xs text-gray-400 mb-6 lg:mb-0 px-3">
                 <Link href={`blog/all`} ><li className="hover:text-primary-3 cursor-pointer">All</li></Link>
                 {categories.map((category)=> (
-                  <Link href={`/blog/category/${category.slug.current}`} key={category._id}>
+                  <Link href={`/category/${category.slug.current}`} key={category._id}>
                   <li className="hover:text-primary-3 cursor-pointer">{category.title}</li>
                   </Link>
                 ))}

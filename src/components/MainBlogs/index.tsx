@@ -25,19 +25,19 @@ function MainBlogs({ posts = [] }: { posts: SanityDocument[] }) {
                   fill
                 />
               <div className="absolute bottom-0 py-16 left-1/2 -translate-x-1/2 text-primary-1 text-center">
-                <Link href={`/blog/category/${String(post.category).toLowerCase()}`}>
+                <Link href={`/category/${String(post.primaryCategory).trim().toLowerCase().replace(' ','-')}`}>
                   <span className="text-[10px] py-1 px-3 bg-primary-3 font-sans uppercase my-12">
-                    {post.category}
+                    {post.primaryCategory}
                   </span>
                 </Link>
                 <Link
-                  href={`/blog/${post.slug.current}`}
+                  href={`/${post.slug.current}`}
                   className="text-2xl font-bold font-sans"
                 >
                   <h2 className="line-clamp-3">{post.title}</h2>
                 </Link>
                 <p className="text-xs font-sans">
-                  by {post.author} |{" "}
+                  by <Link className="hover:text-primary-3 hover:underline" href={`/author/${String(post.author).trim().toLowerCase().replace(' ', '-')}`}>{post.author}</Link> |{" "}
                   {new Date(post.publishedAt).toLocaleDateString("en-US", {
                     day: "numeric",
                     month: "long",

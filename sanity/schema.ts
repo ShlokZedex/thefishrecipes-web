@@ -7,7 +7,8 @@ import author from './schemas/author'
 import metadata from './schemas/metadata'
 import tag from './schemas/tag'
 import redirect from './schemas/redirect'
+import siteConfig from './schemas/siteConfig'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [post, author, category, blockContent , metadata, tag, redirect],
+  types: [siteConfig, post, author, category, blockContent , metadata, tag, redirect],
 }

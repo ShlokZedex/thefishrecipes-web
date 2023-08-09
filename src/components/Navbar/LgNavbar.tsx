@@ -3,9 +3,14 @@
 import { CaretDownIcon, MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import { SanityDocument } from "next-sanity";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { groq } from "next-sanity";
-import { cachedClient } from "../../../sanity/lib/client";
+import { cachedClient, client } from "../../../sanity/lib/client";
+import Image from "next/image";
+import imageUrlBuilder from "@sanity/image-url";
+import FishLogo from "../../../public/FishLogo.png"
+
+export const builder = imageUrlBuilder(client);
 
 export default function LgNavbar({
   categories = [],
@@ -16,6 +21,8 @@ export default function LgNavbar({
   const [showDropdown, setShowDropdown] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<SanityDocument[]>([]);
+
+  const dropdownRef = useRef<HTMLLIElement>(null); // Ref for the dropdown container
 
   const searchBar = () => {
     setOpen(!open);
@@ -67,13 +74,39 @@ export default function LgNavbar({
     setOpen(false);
   };
 
+  const categoryBlur = () => {
+    // Close the search input and search results box when the input loses focus
+    setShowDropdown(false);
+  };
+
+    // Add click event listener on document to handle clicks outside the dropdown
+    useEffect(() => {
+      const handleOutsideClick = (event : MouseEvent) => {
+        if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+          setShowDropdown(false);
+        }
+      };
+  
+      document.addEventListener("click", handleOutsideClick);
+  
+      return () => {
+        document.removeEventListener("click", handleOutsideClick);
+      };
+    }, []);
 
   return (
     <nav className=" bg-primary-1">
       <div className=" flex justify-between mx-auto container">
         <div className="font-semibold self-center cursor-pointer">
           <Link href={`/`}>
-            <h1>MM MITTE</h1>
+          <Image
+            className=""
+            src={FishLogo}
+            width={88}
+            height={22}
+            alt="logo"
+          />
+            {/* <h1>MM MITTE</h1> */}
           </Link>
         </div>
         <div>
@@ -82,8 +115,10 @@ export default function LgNavbar({
               <li className="hover:text-primary-3 cursor-pointer">Home</li>
             </Link>
             <li
+              ref={dropdownRef}
               className="hover:text-primary-3 cursor-pointer flex"
-              onClick={toggleDropdown}
+              onClick ={toggleDropdown}
+              onBlur = {categoryBlur}
             >
               <p>Category</p>
               <CaretDownIcon className="h-5 w-5" />
@@ -92,7 +127,7 @@ export default function LgNavbar({
                   {categories.map((category) => (
                     <Link
                       key={category._id}
-                      href={`/blog/category/${category.title.toLowerCase()}`}
+                      href={`/category/${String(category.title).trim().toLowerCase().replace(' ','-')}`}
                     >
                       <li className="hover:text-primary-3 cursor-pointer p-2">
                         {category.title}
@@ -125,11 +160,11 @@ export default function LgNavbar({
               <ul className="absolute bg-white text-black mt-14 border right-1 border-t-primary-3 p-2 shadow w-[266px]">
                 {searchResults.map((result) => (
                   <li key={result._id} className="border-b-2 border-b-primary-2 px-2 py-1">
-                    <Link href={`/blog/${result.slug.current}`} className=" hover:text-primary-3">
+                    <Link href={`/${result.slug.current}`} className=" hover:text-primary-3">
                         <span className="line-clamp-2">
-                          {result.title} ({result.category})
+                          {result.title} ({result.primaryCategory})
                         </span>
-                        {/* <span>({result.category})</span>s */}
+                        {/* <span>({result.primaryCategory})</span>s */}
                     </Link>
                   </li>
                 ))}

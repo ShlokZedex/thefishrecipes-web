@@ -21,8 +21,8 @@ const Card = ({post}:{post: SanityDocument}) => {
                 />
         </div>
         <div className="bottom flex flex-col ">
-            <Link href={`/blog/category/${String(post.category).toLowerCase()}`}><div className="category text-[10px] font-sans uppercase text-red-500">{post.category}</div></Link>
-            <Link href={`/blog/${post.slug.current}`}><div className="title text-2xl font-bold font-sans text-primary-1 hover:text-primary-3 cursor-pointer line-clamp-1">{post.title}</div></Link>
+            <Link href={`/category/${String(post.primaryCategory).trim().toLowerCase().replace(' ','-')}`}><div className="category text-[10px] font-sans uppercase text-red-500">{post.primaryCategory}</div></Link>
+            <Link href={`/${post.slug.current}`}><div className="title text-2xl font-bold font-sans text-primary-1 hover:text-primary-3 cursor-pointer line-clamp-1">{post.title}</div></Link>
             <div className="time text-xs font-sans text-gray-400">{new Date(post.publishedAt).toLocaleDateString(
             "en-US",{
               day: "numeric",

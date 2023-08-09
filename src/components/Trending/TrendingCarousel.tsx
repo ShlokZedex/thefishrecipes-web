@@ -8,6 +8,7 @@ import Image from "next/image";
 import imageUrlBuilder from "@sanity/image-url";
 import { client } from "../../../sanity/lib/client";
 import Link from "next/link";
+import { PortableText } from "@portabletext/react";
 
 const builder = imageUrlBuilder(client);
 
@@ -43,22 +44,23 @@ export default function TrendingCarousel({
           <Image
             src={builder.image(trendingPosts[currentIndex].mainImage).url()}
             alt={trendingPosts[currentIndex]?.mainImage?.alt}
+            className="hover:scale-110 hover:rotate-3 hover:duration-[3000ms] hover:transition"
             fill
           />
 
           <div className="absolute bottom-0 pb-5 pl-5 text-primary-1">
-            <Link href={`/blog/category/${String(trendingPosts[currentIndex].category).toLowerCase()}`}>
+            <Link href={`/category/${String(trendingPosts[currentIndex].primaryCategory).toLowerCase()}`}>
               <span className="text-[10px] py-1 px-3 bg-primary-3 font-sans uppercase my-12">
-                {trendingPosts[currentIndex].category}
+                {trendingPosts[currentIndex].primaryCategory}
               </span>
             </Link>
-            <Link href={`/blog/${trendingPosts[currentIndex].slug.current}`}>
-            <h1 className="text-2xl font-bold font-sans">
+            <Link href={`/${trendingPosts[currentIndex].slug.current}`}>
+            <h1 className="text-2xl font-bold font-sans line-clamp-2">
               {trendingPosts[currentIndex].title}
             </h1>
             </Link>
             <p className="text-xs font-sans">
-              by {trendingPosts[currentIndex].author} | {new Date(trendingPosts[currentIndex].publishedAt).toLocaleDateString(
+              by <Link className="hover:text-primary-3 hover:underline" href={`/author/${String(trendingPosts[currentIndex].author).trim().toLowerCase().replace(' ', '-')}`}>{trendingPosts[currentIndex].author}</Link> | {new Date(trendingPosts[currentIndex].publishedAt).toLocaleDateString(
             "en-US",{
               day: "numeric",
               month: "long",
@@ -66,6 +68,9 @@ export default function TrendingCarousel({
             }
           )} 
             </p>
+            <div className="text-sm font-sans font-medium pt-2 pr-2 line-clamp-2">
+              {trendingPosts[currentIndex]?.body ? <PortableText value={trendingPosts[currentIndex].body} /> : null}
+            </div>
           </div>
           <div className="absolute flex top-4 right-3 justify-center">
             {trendingPosts.map((_, slideIndex) => (
